@@ -37,7 +37,7 @@ end
 if doPlots == true
     
 %% Plots
-fontSize = 18; linewidth = 3; titlefontsize= 15;                 
+fontSize = 25; linewidth = 3; titlefontsize= 22;                 
 figure(1),
 set(gcf, 'Position', get(0, 'Screensize'));
 fnplt(polyx,linewidth), hold on
@@ -45,11 +45,13 @@ fnplt(polyy,linewidth)
 xline(breaks(2) ,'LineStyle','--','Color',"#D95319",'LineWidth',2),grid minor
 xline(breaks(3) ,'LineStyle','--','Color','#7E2F8E','LineWidth',2)
 yline(0,'LineStyle','--','Color','k','LineWidth',2)
-xlabel('time [sec]'), ylabel('trajecory [m]','Rotation',0)
+xlabel('time [sec]'), ylabel('trajecory [m]','Fontsize',fontSize, 'Rotation',0)
 legend('trajectory in x', 'trajectory in y','first break', 'second break', 'zero line')
 fontsize(fontSize,"points")
-title('Trajectory','FontSize', titlefontsize)
-subtitle('variation in time','FontSize', titlefontsize), hold off
+title_name = 'Trajectory';
+title(strcat('\bf{',title_name,'}'),'FontSize', titlefontsize)
+
+subtitle(strcat('\bf{','variation in time','}'),'FontSize', titlefontsize), hold off
 
 figure(2),
 set(gcf, 'Position', get(0, 'Screensize'));
@@ -58,20 +60,22 @@ fnplt(dpolyy,linewidth)
 xline(breaks(2) ,'LineStyle','--','Color',"#D95319",'LineWidth',2),grid minor
 xline(breaks(3) ,'LineStyle','--','Color','#7E2F8E','LineWidth',2)
 yline(0,'LineStyle','--','Color','k','LineWidth',2)
-xlabel("time [sec]"), ylabel('velocity [m/s]','Rotation',0)
+xlabel("time [sec]"), ylabel('velocity [m/s]','FontSize', titlefontsize,'Rotation',0)
 legend('$\dot{x}$','$\dot{y}$','first break', 'second break', 'zero line')
 fontsize(fontSize,"points")
-title('Velocities of the Trajectory','FontSize', titlefontsize)
-subtitle('variation in time','FontSize', titlefontsize), hold off
+title_name = 'Velocities of the Trajectory';
+title(strcat('\bf{',title_name,'}'),'FontSize', titlefontsize)
+subtitle(strcat('\bf{','variation in time','}'),'FontSize', titlefontsize), hold off
 
 figure(3),
 set(gcf, 'Position', get(0, 'Screensize'));
 plot(ppval(polyx,timeVec),ppval(polyy,timeVec),'Color',colors(3,:), 'LineWidth',linewidth)
 yline(0,'LineStyle','--','Color','k','LineWidth',1.5)
-xlabel("x[m]"), ylabel('y[m]','Rotation',0), grid minor
+xlabel("x[m]"), ylabel('y[m]','Fontsize',fontSize,'Rotation',0), grid minor
 fontsize(fontSize,"points")
-title('Trajectory','FontSize', titlefontsize)
-subtitle('variation in x and y','FontSize', titlefontsize)
+title_name = 'Trajectory';
+title(strcat('\bf{',title_name,'}'),'FontSize', titlefontsize)
+subtitle(strcat('\bf{','variation in x and y','}'),'FontSize', titlefontsize)
 
 
 res=zeros(1,2501);
@@ -81,25 +85,28 @@ end
 figure(4),grid on
 set(gcf, 'Position', get(0, 'Screensize'));
 plot(timeVec, res','Color',colors(4,:), 'LineWidth',linewidth)
-xlabel("time [s]"), ylabel('velocity [m/s]','Rotation',0), grid minor
+xlabel("time [s]"), ylabel('velocity [m/s]','Fontsize',fontSize,'Rotation',0), grid minor
 xline(breaks(2) ,'LineStyle','--','Color',"#D95319",'LineWidth',2)
 xline(breaks(3) ,'LineStyle','--','Color','#7E2F8E','LineWidth',2)
 yline(0,'LineStyle','--','Color','k','LineWidth',2)
 legend ('$\it{v}$','first break', 'second break', 'zero line')
-subtitle({'variation in time','$ v = \sqrt{v_{x}^2 + v_{y}^2}$'})
+subtitle({strcat('\bf{','variation in time','}'),'$ v = \sqrt{v_{x}^2 + v_{y}^2}$'})
 fontsize(fontSize,"points")
-title('Velocity of the Trajectory','FontSize', titlefontsize)
+title_name = 'Velocity of the Trajectory';
+title(strcat('\bf{',title_name,'}'),'FontSize', titlefontsize)
 
 
 
 figure(5),
 set(gcf, 'Position', get(0, 'Screensize'));
 plot(ppval(dpolyx,timeVec),ppval(dpolyy,timeVec),'Color',colors(5,:), 'LineWidth',linewidth)
-xlabel("$\dot{x} [m/s]$"), ylabel('$\dot{y} [m/s]$','Rotation',0), grid minor
+xlabel("$\dot{x} [m/s]$"), ylabel('$\dot{y} [m/s]$','Fontsize',fontSize,'Rotation',0), grid minor
 fontsize(fontSize,"points")
-title('Velocity of the Trajectory','FontSize', titlefontsize)
-subtitle(' variation in  $\dot{x}$ and  $\dot{y}$ ','FontSize', titlefontsize)
-end 
+title_name = 'Velocity of the Trajectory';
+title(strcat('\bf{',title_name,'}'),'FontSize', titlefontsize)
+subtitle(strcat('\bf{','variation in  $\dot{x}$ and  $\dot{y}$','}'),'FontSize', titlefontsize)
+end
+strcat('\bf{','variation in  $\dot{x}$ and  $\dot{y}$','}')
 
 end 
 

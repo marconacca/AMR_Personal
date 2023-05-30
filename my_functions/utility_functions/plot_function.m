@@ -1,6 +1,6 @@
 function plot_function(data, title_name, main_label,labels_names, lineNames, stackedtitle,timeVec, linewidth, colors,f)
     % Utility function for the stacked plots.
-    font = 18; stackedfont = 12;
+    font = 25; stackedfont = 12;
 
     % Diminish linewidth for better comparison
     linewidth = linewidth - 1;
@@ -27,31 +27,30 @@ function plot_function(data, title_name, main_label,labels_names, lineNames, sta
     numberOflines = size(data,2);
     
     if numberOflines == 2
-    t=tiledlayout(1,1);
+    n = n + 1;
+    % Maximum an Minimum y value for limits
+    [yMin13,yMax13] = bounds([data,zero_vec],'all')
+    yMin13 = yMin13 - 0.1*yMin13;
+    yMax13 = yMax13 + 0.1*yMax13;
+    t=tiledlayout(2,1);
     nexttile
-        TT = array2timetable([data,zero_vec,zero_vec],...
-                            'RowTimes', D, ...
-                            'VariableNames',[splittedLabels;'zero line';'zero line ']);
-        s = stackedplot(TT, {[1 3],[2 4]},'LineWidth',linewidth);
-        % Change the line style and Colors
-        s.LineProperties(1).LineStyle = {'-','--'};
-        s.LineProperties(1).Color = [colors(1,:);[0 0 0]];
-        s.LineProperties(2).LineStyle = {'-','--'};
-        s.LineProperties(2).Color = [colors(3,:);[0 0 0]];
-        % Change yticks
-        s.AxesProperties(1).YLimits = [yMin yMax]; % Changes the limits of the first subplot
-        s.AxesProperties(2).YLimits = [yMin yMax]; % Changes the limits of the second subplot
-        % Set our labels
-        s.DisplayLabels = splittedLabels;
-        s.XLabel = "";
-        % Font of the stackedplot
-        s.FontSize = stackedfont;
-        % Update figures counter n
-        n = n + 1;
-        grid on
+    plot(timeVec,data(:,1),'Color',colors(1,:)),grid on
+    yline(0,'LineStyle','--','Color','k','LineWidth',1)
+    ylabel('\boldmath{right wheel}','FontSize',font,'Rotation',0)
+    xlabel('time [s]','FontSize',font)
+    legend(splittedLabels{1},'zero line','FontSize',stackedfont+4.5)
+    ylim([yMin13 yMax13])
+    nexttile
+    plot(timeVec,data(:,2),'Color',colors(3,:)),grid on
+    yline(0,'LineStyle','--','Color','k','LineWidth',1)
+    ylabel('\boldmath{left wheel}','FontSize',font,'Rotation',0)
+    xlabel('time [s]','FontSize',font)
+    legend(splittedLabels{2},'zero line','FontSize',stackedfont+4.5)
+    ylim([yMin13 yMax13])
+
     big_label = ylabel(t,main_label);
     % Changing the size of all text and set title.
-    xlabel(t,"\bf{time [s]}",'fontsize',font); 
+    %xlabel(t,"\bf{time [s]}",'fontsize',font); 
     title(t,strcat('\bf{',title_name,'}'),'FontSize',font+1);
     big_label.FontSize = font;
 
@@ -84,7 +83,7 @@ function plot_function(data, title_name, main_label,labels_names, lineNames, sta
     big_label = ylabel(t,main_label);
     % Changing the size of all text and set title.
     xlabel(t,"\bf{time [s]}",'fontsize',font); 
-    title(t,strcat('\bf{',title_name,'}'),'FontSize',font+1);
+    title(t,strcat('\bf{',title_name,'}'),'FontSize',font+3);
     big_label.FontSize = font;
  
     elseif numberOflines == 4
@@ -127,7 +126,7 @@ function plot_function(data, title_name, main_label,labels_names, lineNames, sta
 
     big_label = ylabel(t,main_label);
     % Changing the size of all text and set title.
-    title(t,strcat('\bf{',title_name,'}'),'FontSize',font+1);
+    title(t,strcat('\bf{',title_name,'}'),'FontSize',font+3);
     big_label.FontSize = font;
        
 
@@ -163,7 +162,7 @@ function plot_function(data, title_name, main_label,labels_names, lineNames, sta
     big_label = ylabel(t,main_label);
     % Changing the size of all text and set title.
     xlabel(t,"\bf{time [s]}",'fontsize',font); 
-    title(t,strcat('\bf{',title_name,'}'),'FontSize',font+1);
+    title(t,strcat('\bf{',title_name,'}'),'FontSize',font+3);
     big_label.FontSize = font;
 
     elseif numberOflines == 8
@@ -279,7 +278,7 @@ function plot_function(data, title_name, main_label,labels_names, lineNames, sta
     big_label = ylabel(t,main_label);
     % Changing the size of all text and set title.
     %xlabel(t,"\bf{time [s]}",'fontsize',font); 
-    title(t,strcat('\bf{',title_name,'}'),'FontSize',font+1);
+    title(t,strcat('\bf{',title_name,'}'),'FontSize',font+3);
     big_label.FontSize = font;
 
     else 
